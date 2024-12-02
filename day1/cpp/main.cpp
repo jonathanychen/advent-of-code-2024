@@ -7,7 +7,7 @@
 std::vector<std::string> ReadInput()
 {
     std::ifstream ifstream;
-    ifstream.open("./inputs/day1-1.txt");
+    ifstream.open("./inputs/day1.txt");
 
     std::vector<std::string> result;
     std::string line;
