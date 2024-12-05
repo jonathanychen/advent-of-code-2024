@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <ctype.h>
+#include <vector>
 
 std::vector<std::vector<char>> ReadInput(std::string filepath)
 {
@@ -118,6 +119,6 @@ int main(int argc, char* argv[])
 
 	std::string input_path = std::string(argv[1]);
 
-	std::cout << "Day 3 -- Part 1: " << Solve1(input_path) << std::endl;
-	std::cout << "Day 3 -- Part 2: " << Solve2(input_path) << std::endl;
+	std::cout << "Day 4 -- Part 1: " << Solve1(input_path) << std::endl;
+	std::cout << "Day 4 -- Part 2: " << Solve2(input_path) << std::endl;
 }
