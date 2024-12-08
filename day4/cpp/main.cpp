@@ -13,40 +13,45 @@ std::vector<std::vector<char>> readInput(std::string filepath)
 	while (ifstream)
 	{
 		std::vector<char> row;
-        	std::getline(ifstream, line);
-        	if (line == "") break;
-        	for (char c : line) row.push_back(c);
+		std::getline(ifstream, line);
+		if (line == "")
+			break;
+		for (char c : line)
+			row.push_back(c);
 
 		result.push_back(row);
-    	}
-    	ifstream.close();
+	}
+	ifstream.close();
 
-    	return result;
+	return result;
 }
 
-int checkMatches(size_t i, size_t j, std::vector<std::vector<char>> matrix, std::string goal) {
+int checkMatches(size_t i, size_t j, std::vector<std::vector<char>> matrix, std::string goal)
+{
 	size_t m = matrix.size(), n = matrix[0].size();
-	
+
 	int num_matches = 0;
 
 	size_t goal_len = goal.size();
 
 	std::vector<std::pair<int, int>> directions = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
 
-	for (std::pair<int, int> direction : directions) {
-		if (i + direction.first * (goal_len - 1) >= 0 
-				&& i + direction.first * (goal_len - 1) < m 
-				&& j + direction.second * (goal_len - 1) >= 0 
-				&& j + direction.second * (goal_len - 1) < n) {
+	for (std::pair<int, int> direction : directions)
+	{
+		if (i + direction.first * (goal_len - 1) >= 0 && i + direction.first * (goal_len - 1) < m && j + direction.second * (goal_len - 1) >= 0 && j + direction.second * (goal_len - 1) < n)
+		{
 			bool valid = true;
-			for (size_t g = 0; g < goal_len; ++g) {
+			for (size_t g = 0; g < goal_len; ++g)
+			{
 				int ni = i + g * direction.first, nj = j + g * direction.second;
-				if (matrix[ni][nj] != goal.at(g)) {
+				if (matrix[ni][nj] != goal.at(g))
+				{
 					valid = false;
 					break;
 				}
 			}
-			if (valid) {
+			if (valid)
+			{
 				num_matches += 1;
 			}
 		}
@@ -62,11 +67,13 @@ int solve1(std::string input_path)
 	std::string goal = "XMAS";
 
 	size_t m = matrix.size(), n = matrix[0].size();
-	
+
 	long result = 0;
 
-	for (size_t i = 0; i < m; ++i) {
-		for (size_t j = 0; j < n; ++j) {
+	for (size_t i = 0; i < m; ++i)
+	{
+		for (size_t j = 0; j < n; ++j)
+		{
 			result += checkMatches(i, j, matrix, goal);
 		}
 	}
@@ -74,19 +81,24 @@ int solve1(std::string input_path)
 	return result;
 }
 
-int checkCrossMatches(size_t i, size_t j, std::vector<std::vector<char>> matrix) {
+int checkCrossMatches(size_t i, size_t j, std::vector<std::vector<char>> matrix)
+{
 	int num_matches = 0;
 
-	if (matrix[i+1][j-1] == 'M' && matrix[i+1][j+1] == 'M' && matrix[i-1][j-1] == 'S' && matrix[i-1][j+1] == 'S') {
+	if (matrix[i + 1][j - 1] == 'M' && matrix[i + 1][j + 1] == 'M' && matrix[i - 1][j - 1] == 'S' && matrix[i - 1][j + 1] == 'S')
+	{
 		num_matches += 1;
 	}
-	if (matrix[i+1][j-1] == 'S' && matrix[i+1][j+1] == 'S' && matrix[i-1][j-1] == 'M' && matrix[i-1][j+1] == 'M') {
+	if (matrix[i + 1][j - 1] == 'S' && matrix[i + 1][j + 1] == 'S' && matrix[i - 1][j - 1] == 'M' && matrix[i - 1][j + 1] == 'M')
+	{
 		num_matches += 1;
 	}
-	if (matrix[i+1][j-1] == 'S' && matrix[i+1][j+1] == 'M' && matrix[i-1][j-1] == 'S' && matrix[i-1][j+1] == 'M') {
+	if (matrix[i + 1][j - 1] == 'S' && matrix[i + 1][j + 1] == 'M' && matrix[i - 1][j - 1] == 'S' && matrix[i - 1][j + 1] == 'M')
+	{
 		num_matches += 1;
 	}
-	if (matrix[i+1][j-1] == 'M' && matrix[i+1][j+1] == 'S' && matrix[i-1][j-1] == 'M' && matrix[i-1][j+1] == 'S') {
+	if (matrix[i + 1][j - 1] == 'M' && matrix[i + 1][j + 1] == 'S' && matrix[i - 1][j - 1] == 'M' && matrix[i - 1][j + 1] == 'S')
+	{
 		num_matches += 1;
 	}
 
@@ -101,18 +113,22 @@ int solve2(std::string input_path)
 
 	long result = 0;
 
-	for (size_t i = 1; i < m - 1; ++i) {
-		for (size_t j = 1; j < n - 1; ++j) {
-			if (matrix[i][j] == 'A') result += checkCrossMatches(i, j, matrix);
+	for (size_t i = 1; i < m - 1; ++i)
+	{
+		for (size_t j = 1; j < n - 1; ++j)
+		{
+			if (matrix[i][j] == 'A')
+				result += checkCrossMatches(i, j, matrix);
 		}
 	}
 
 	return result;
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-	if (argc != 2) {
+	if (argc != 2)
+	{
 		std::cout << "No filepath provided!" << std::endl;
 		throw;
 	}
