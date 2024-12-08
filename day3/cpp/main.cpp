@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include <vector>
 
-std::vector<std::string> ReadInput()
+std::vector<std::string> readInput()
 {
     std::ifstream ifstream;
     ifstream.open("./inputs/day3.txt");
@@ -22,9 +22,9 @@ std::vector<std::string> ReadInput()
     return result;
 }
 
-int Solve1()
+int solve1()
 {
-    std::vector<std::string> contents = ReadInput();
+    std::vector<std::string> contents = readInput();
 
     std::string delimiter = "mul(";
 
@@ -80,9 +80,9 @@ int Solve1()
     return result;
 }
 
-int Solve2()
+int solve2()
 {
-    std::vector<std::string> contents = ReadInput();
+    std::vector<std::string> contents = readInput();
 
     std::string delimiter = "mul(";
 
@@ -162,6 +162,6 @@ int Solve2()
 
 int main()
 {
-    std::cout << "Day 3 -- Part 1: " << Solve1() << std::endl;
-    std::cout << "Day 3 -- Part 2: " << Solve2() << std::endl;
+    std::cout << "Day 3 -- Part 1: " << solve1() << std::endl;
+    std::cout << "Day 3 -- Part 2: " << solve2() << std::endl;
 }

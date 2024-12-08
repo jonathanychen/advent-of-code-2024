@@ -5,7 +5,7 @@
 #include <deque>
 #include <set>
 
-void ReadInput(std::string input_path, std::vector<std::pair<int, int>>& edges, std::vector<std::vector<int>>& updates) {
+void readInput(std::string input_path, std::vector<std::pair<int, int>>& edges, std::vector<std::vector<int>>& updates) {
     std::ifstream ifstream;
     ifstream.open(input_path);
 
@@ -35,7 +35,7 @@ void ReadInput(std::string input_path, std::vector<std::pair<int, int>>& edges, 
     }
 }
 
-void TopologicalSort(const std::vector<std::pair<int, int>>& edges, std::vector<int>& sequence) {
+void topologicalSort(const std::vector<std::pair<int, int>>& edges, std::vector<int>& sequence) {
     std::map<int, std::vector<int>> edge_map;
     for (std::pair<int, int> edge : edges) {
         if (edge_map.find(edge.first) == edge_map.end()) {
@@ -79,7 +79,7 @@ void TopologicalSort(const std::vector<std::pair<int, int>>& edges, std::vector<
     }
 }
 
-bool ValidUpdate(std::map<int, std::set<int>> orders, std::vector<int> update) {
+bool validUpdate(std::map<int, std::set<int>> orders, std::vector<int> update) {
     for (size_t i = 0 ; i < update.size() ; ++i ) {
         for (size_t j = 0 ; j < i ; ++j ) { 
             if (orders[update[i]].find(update[j]) != orders[update[i]].end()) {
@@ -90,13 +90,13 @@ bool ValidUpdate(std::map<int, std::set<int>> orders, std::vector<int> update) {
     return true;
 }
 
-int Solve1(std::string input_path) {
+int solve1(std::string input_path) {
     int result = 0;
 
     std::vector<std::pair<int, int>> edges;
     std::vector<std::vector<int>> updates;
 
-    ReadInput(input_path, edges, updates);
+    readInput(input_path, edges, updates);
 
     std::map<int, std::set<int>> orders;
 
@@ -108,7 +108,7 @@ int Solve1(std::string input_path) {
     }
 
     for (std::vector<int> update : updates) {
-        if (ValidUpdate(orders, update)) {
+        if (validUpdate(orders, update)) {
             size_t mid = update.size() / 2;
             result += update[mid];
         }
@@ -117,7 +117,7 @@ int Solve1(std::string input_path) {
     return result;
 }
 
-std::vector<int> CorrectOrder(std::map<int, std::set<int>> orders, std::vector<int> original) {
+std::vector<int> correctOrder(std::map<int, std::set<int>> orders, std::vector<int> original) {
     std::vector<std::pair<int, int>> edges;
 
     for (size_t i = 0 ; i < original.size() ; ++i) {
@@ -132,18 +132,18 @@ std::vector<int> CorrectOrder(std::map<int, std::set<int>> orders, std::vector<i
 
     std::vector<int> corrected;
 
-    TopologicalSort(edges, corrected);
+    topologicalSort(edges, corrected);
 
     return corrected;
 }
 
-int Solve2(std::string input_path) {
+int solve2(std::string input_path) {
     int result = 0;
 
     std::vector<std::pair<int, int>> edges;
     std::vector<std::vector<int>> updates;
 
-    ReadInput(input_path, edges, updates);
+    readInput(input_path, edges, updates);
 
     std::map<int, std::set<int>> orders;
 
@@ -155,8 +155,8 @@ int Solve2(std::string input_path) {
     }
 
     for (std::vector<int> update : updates) {
-        if (!ValidUpdate(orders, update)) {
-            std::vector<int> corrected = CorrectOrder(orders, update);
+        if (!validUpdate(orders, update)) {
+            std::vector<int> corrected = correctOrder(orders, update);
             size_t mid = corrected.size() / 2;
             result += corrected[mid];
         }
@@ -173,6 +173,6 @@ int main(int argc, char* argv[]) {
 
     std::string input_path = std::string(argv[1]);
 
-    std::cout << "Day 5 -- Part 1: " << Solve1(input_path) << std::endl;
-    std::cout << "Day 5 -- Part 2: " << Solve2(input_path) << std::endl;
+    std::cout << "Day 5 -- Part 1: " << solve1(input_path) << std::endl;
+    std::cout << "Day 5 -- Part 2: " << solve2(input_path) << std::endl;
 }

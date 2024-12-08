@@ -6,7 +6,7 @@
 #include <map>
 #include <algorithm>
 
-std::vector<std::string> ReadInput()
+std::vector<std::string> readInput()
 {
     std::ifstream ifstream;
     ifstream.open("./inputs/day1.txt");
@@ -23,7 +23,7 @@ std::vector<std::string> ReadInput()
     return result;
 }
 
-std::tuple<std::vector<int>, std::vector<int>> ReadInts(std::vector<std::string> contents)
+std::tuple<std::vector<int>, std::vector<int>> readInts(std::vector<std::string> contents)
 {
     std::vector<int> list1;
     std::vector<int> list2;
@@ -49,12 +49,12 @@ std::tuple<std::vector<int>, std::vector<int>> ReadInts(std::vector<std::string>
     return std::make_tuple(list1, list2);
 }
 
-int Abs(int n)
+int abs(int n)
 {
     return (n < 0 ? -n : n);
 }
 
-int Solve1(std::vector<int> list1, std::vector<int> list2)
+int solve1(std::vector<int> list1, std::vector<int> list2)
 {
     std::sort(list1.begin(), list1.end());
     std::sort(list2.begin(), list2.end());
@@ -63,13 +63,13 @@ int Solve1(std::vector<int> list1, std::vector<int> list2)
 
     for (size_t i = 0; i < list1.size(); i++)
     {
-        result += Abs(list1[i] - list2[i]);
+        result += abs(list1[i] - list2[i]);
     }
 
     return result;
 }
 
-int Solve2(std::vector<int> list1, std::vector<int> list2)
+int solve2(std::vector<int> list1, std::vector<int> list2)
 {
     std::map<int, int> counter;
 
@@ -99,11 +99,11 @@ int Solve2(std::vector<int> list1, std::vector<int> list2)
 
 int main()
 {
-    std::vector<std::string> contents = ReadInput();
+    std::vector<std::string> contents = readInput();
 
     std::vector<int> list1, list2;
-    std::tie(list1, list2) = ReadInts(contents);
+    std::tie(list1, list2) = readInts(contents);
 
-    std::cout << "Day 1 -- Part 1: " << Solve1(list1, list2) << '\n';
-    std::cout << "Day 1 -- Part 2: " << Solve2(list1, list2) << '\n';
+    std::cout << "Day 1 -- Part 1: " << solve1(list1, list2) << '\n';
+    std::cout << "Day 1 -- Part 2: " << solve2(list1, list2) << '\n';
 }
