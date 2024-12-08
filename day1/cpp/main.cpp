@@ -3,6 +3,8 @@
 #include <string>
 #include <fstream>
 #include <tuple>
+#include <map>
+#include <algorithm>
 
 std::vector<std::string> ReadInput()
 {
@@ -69,7 +71,7 @@ int Solve1(std::vector<int> list1, std::vector<int> list2)
 
 int Solve2(std::vector<int> list1, std::vector<int> list2)
 {
-    std::unordered_map<int, int> counter;
+    std::map<int, int> counter;
 
     for (int i : list2)
     {
