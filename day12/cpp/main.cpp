@@ -7,21 +7,17 @@
 static const std::vector<std::pair<int, int>> DIRECTIONS = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 size_t m, n;
 
+// https://stackoverflow.com/questions/7868936/read-file-line-by-line-using-ifstream-in-c
 std::vector<std::vector<char>> readInput(std::string input_path)
 {
     std::vector<std::vector<char>> matrix = {};
 
-    std::ifstream ifstream;
-    ifstream.open(input_path);
+    std::ifstream ifstream(input_path);
 
     std::string line;
 
-    while (ifstream)
+    while (std::getline(ifstream, line))
     {
-        std::getline(ifstream, line);
-        if (line == "")
-            break;
-
         std::vector<char> row = {};
 
         for (char c : line)
